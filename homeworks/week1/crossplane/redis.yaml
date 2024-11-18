@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-secret
+  namespace: crossplane
+type: Opaque
+stringData:
+  password: "RedisP@ssw0rd"
+---
+apiVersion: redis.tencentcloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: test-crossplane-redis
+  namespace: crossplane
+spec:
+  forProvider:
+    name: test-crossplane-redis
+    projectId: 1323177
+    availabilityZone: ap-hongkong-2
+    typeId: 15
+    operationNetwork: changeBaseToVpc
+    vpcId: vpc-o7zhr9oe
+    subnetId: subnet-apht9n9f
+    redisReplicasNum: 1
+    memSize: 512
+    passwordSecretRef:
+      namespace: crossplane
+      name: redis-secret
+      key: password
+  providerConfigRef:
+    name: default

@@ -1,0 +1,21 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-tencentcloud
+  namespace: crossplane
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/provider-tencentcloud:v0.8.3
+
+---
+apiVersion: tencentcloud.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: crossplane
+spec:
+  credentials:
+    secretRef:
+      key: credentials
+      name: tencentcloud-secrets
+      namespace: crossplane
+    source: Secret

@@ -1,0 +1,23 @@
+apiVersion: vpc.tencentcloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  name: geektime-aiops-vpc
+  namespace: crossplane
+spec:
+  forProvider:
+    cidrBlock: 10.1.0.0/16
+    name: geektime-aiops-vpc
+
+---
+apiVersion: vpc.tencentcloud.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  name: geektime-aiops-subnet
+  namespace: crossplane
+spec:
+  forProvider:
+    availabilityZone: "ap-hongkong-2"
+    cidrBlock: "10.1.1.0/24"
+    name: "geektime-aiops-subnet"
+    vpcIdRef:
+      name: geektime-aiops-vpc
